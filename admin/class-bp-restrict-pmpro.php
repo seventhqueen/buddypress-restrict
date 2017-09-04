@@ -38,7 +38,7 @@ class BP_Restrict_Pmpro {
 	 */
 	public function __construct() {
 		add_action( 'wp', array( $this, 'profile_message_ux_send_private_message' ), 2 );
-		add_action( "init", array( $this, "restrict_rules" ) );
+		add_action( "template_redirect", array( $this, "restrict_rules" ) );
 		
 		add_shortcode( 'bp_restrict_pmpro_access', array( $this, 'access_func' ) );
 		add_action( 'bp_before_member_header_meta', array( $this, 'membership_info' ) );
@@ -75,14 +75,14 @@ class BP_Restrict_Pmpro {
 			
 			'icon'       => 'el-icon-group',
 			'icon_class' => 'icon-large',
-			'title'      => __( 'PMPRO restrict', 'buddypress_restrict' ),
+			'title'      => __( 'PMPRO restrict', 'buddypress-restrict' ),
 			'customizer' => false,
-			'desc'       => __( 'Settings related to restrictions for Paid Memberships Pro plugin', 'buddypress_restrict' ),
+			'desc'       => __( 'Settings related to restrictions for Paid Memberships Pro plugin', 'buddypress-restrict' ),
 			'fields'     => array(
 				array(
 					'id'       => $this->option_name,
 					'type'     => 'callback',
-					'title'    => __( 'Membership settings', 'buddypress_restrict' ),
+					'title'    => __( 'Membership settings', 'buddypress-restrict' ),
 					'sub_desc' => '',
 					'callback' => array( $this, 'pmpro_data_set' ),
 				)
@@ -111,11 +111,6 @@ class BP_Restrict_Pmpro {
 		
 		//if buddypress is not activated
 		if ( ! function_exists( 'bp_is_active' ) ) {
-			return;
-		}
-		
-		//allow me to view other parts of my profile
-		if ( bp_is_my_profile() ) {
 			return;
 		}
 		
@@ -331,7 +326,7 @@ class BP_Restrict_Pmpro {
 			if ( isset( $current_user->membership_level ) && $current_user->membership_level->ID ) {
 				echo '<a href="' . pmpro_url( "account" ) . '"><span class="label radius pmpro_label">' . $current_user->membership_level->name . '</span></a>';
 			} else {
-				echo '<a href="' . pmpro_url( "levels" ) . '"><span class="label radius pmpro_label">' . __( "Upgrade account", 'buddypress_restrict' ) . '</span></a>';
+				echo '<a href="' . pmpro_url( "levels" ) . '"><span class="label radius pmpro_label">' . __( "Upgrade account", 'buddypress-restrict' ) . '</span></a>';
 			}
 		}
 	}
@@ -382,12 +377,12 @@ class BP_Restrict_Pmpro {
 			?>
 			<tr>
 				<td scope="row" valign="top">
-					<label for="<?php echo $pays['name']; ?>"><strong><?php echo $pays['title']; ?></strong></label>
+					<label for="<?php echo $field['id'];?>_<?php echo $pays['name']; ?>"><strong><?php echo $pays['title']; ?></strong></label>
 				</td>
 				<td>
-					<select id="<?php echo $pays['name']; ?>"
+					<select id="<?php echo $field['id'];?>_<?php echo $pays['name']; ?>"
 					        name="<?php echo 'bp_restrict_opt' . '[' . $field['id'] . ']'; ?>[<?php echo $pays['name']; ?>][type]"
-					        onchange="bp_restrict_pmpro_update<?php echo $pays['name']; ?>TRs();">
+					        onchange="bp_restrict_pmpro_update<?php echo $field['id'] . '_' . $pays['name']; ?>TRs();">
 						<option value="0"
 						        <?php if ( ! isset( $value[ $pays['name'] ]['type'] ) ) { ?>selected="selected"<?php } ?>><?php _e( 'No', 'pmpro' ); ?></option>
 						<option value="1"
@@ -397,7 +392,7 @@ class BP_Restrict_Pmpro {
 					</select>
 				</td>
 			</tr>
-			<tr id="<?php echo $pays['name']; ?>levels_tr"
+			<tr id="<?php echo $field['id'] . '_' . $pays['name']; ?>levels_tr"
 			    <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] != 2 ) { ?>style="display: none;"<?php } ?>>
 				<td scope="row" valign="top">
 					<label
@@ -443,21 +438,21 @@ class BP_Restrict_Pmpro {
 			</tr>
 			
 			<script>
-				function bp_restrict_pmpro_update<?php echo $pays['name'];?>TRs() {
-					var <?php echo $pays['name'];?> = jQuery('#<?php echo $pays['name'];?>').val();
+				function bp_restrict_pmpro_update<?php echo $field['id'] . '_' . $pays['name'];?>TRs() {
+					var <?php echo $pays['name'];?> = jQuery('#<?php echo $field['id'] . '_' . $pays['name'];?>').val();
 					if ( <?php echo $pays['name'];?> == 2 ) {
-						jQuery('#<?php echo $pays['name'];?>levels_tr').show();
+						jQuery('#<?php echo $field['id'] . '_' . $pays['name'];?>levels_tr').show();
 					} else {
-						jQuery('#<?php echo $pays['name'];?>levels_tr').hide();
+						jQuery('#<?php echo $field['id'] . '_' . $pays['name'];?>levels_tr').hide();
 					}
 	
 					if ( <?php echo $pays['name'];?> > 0 ) {
-						jQuery('#<?php echo $pays['name'];?>_explanation').show();
+						jQuery('#<?php echo $field['id'] . '_' . $pays['name'];?>_explanation').show();
 					} else {
-						jQuery('#<?php echo $pays['name'];?>_explanation').hide();
+						jQuery('#<?php echo $field['id'] . '_' . $pays['name'];?>_explanation').hide();
 					}
 				}
-				bp_restrict_pmpro_update<?php echo $pays['name'];?>TRs();
+				bp_restrict_pmpro_update<?php echo $field['id'] . '_' . $pays['name'];?>TRs();
 			</script>
 		<?php endforeach; ?>
 		

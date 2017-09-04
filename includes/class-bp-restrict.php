@@ -127,15 +127,15 @@ class BP_Restrict {
 		$members_slug     = str_replace( '/', '\/', bp_get_members_root_slug() );
 		
 		$settings[] = array(
-			'title' => __( 'Members directory restriction', 'buddypress_restrict' ),
-			'front' => __( 'View members directory', 'buddypress_restrict' ),
+			'title' => __( 'Members directory restriction', 'buddypress-restrict' ),
+			'front' => __( 'View members directory', 'buddypress-restrict' ),
 			'name'  => 'members_dir',
 			'condition' => 'preg_match( "/^\/' . $members_slug . '\/?$/", %current_url% )',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'Restrict viewing other profiles', 'buddypress_restrict' ),
-			'front' => __( 'View members profile', 'buddypress_restrict' ),
+			'title' => __( 'Restrict viewing other profiles', 'buddypress-restrict' ),
+			'front' => __( 'View members profile', 'buddypress-restrict' ),
 			'name'  => 'view_profiles',
 			'condition' => 'bp_is_user()',
 		);
@@ -144,14 +144,14 @@ class BP_Restrict {
 			$groups_slug      = str_replace( '/', '\/', bp_get_groups_root_slug() );
 			
 			$settings[] = array(
-				'title'     => __( 'Groups directory restriction', 'buddypress_restrict' ),
-				'front'     => __( 'Access group directory', 'buddypress_restrict' ),
+				'title'     => __( 'Groups directory restriction', 'buddypress-restrict' ),
+				'front'     => __( 'Access group directory', 'buddypress-restrict' ),
 				'name'      => 'groups_dir',
 				'condition' => 'preg_match("/\/' . $groups_slug . '\/?$/", %current_url% )',
 			);
 			$settings[] = array(
-				'title'     => __( 'Group page restriction', 'buddypress_restrict' ),
-				'front'     => __( 'Access to groups', 'buddypress_restrict' ),
+				'title'     => __( 'Group page restriction', 'buddypress-restrict' ),
+				'front'     => __( 'Access to groups', 'buddypress-restrict' ),
 				'name'      => 'view_groups',
 				'condition' => 'preg_match("/\/' . $groups_slug . '\/[' . $allowed_chars . '\/]+\/?$/", %current_url% )',
 			);
@@ -161,31 +161,34 @@ class BP_Restrict {
 			$activity_slug    = str_replace( '/', '\/', bp_get_activity_root_slug() );
 			
 			$settings[] = array(
-				'title'     => __( 'Site activity restriction', 'buddypress_restrict' ),
-				'front'     => __( 'View site activity', 'buddypress_restrict' ),
+				'title'     => __( 'Site activity restriction', 'buddypress-restrict' ),
+				'front'     => __( 'View site activity', 'buddypress-restrict' ),
 				'name'      => 'show_activity',
 				'condition' => 'preg_match("/\/' . $activity_slug . '\/?$/", %current_url% )',
 			);
 		}
 		
 		$settings[] =	array(
-			'title' => __( 'Sending private messages restriction', 'buddypress_restrict' ),
-			'front' => __( 'Send Private messages', 'buddypress_restrict' ),
+			'title' => __( 'Sending private messages restriction', 'buddypress-restrict' ),
+			'front' => __( 'Send Private messages', 'buddypress-restrict' ),
 			'name'  => 'pm',
+			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/messages\/compose\/?/", %current_url% )',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'Viewing private messages restriction', 'buddypress_restrict' ),
-			'front' => __( 'View Private messages', 'buddypress_restrict' ),
+			'title' => __( 'Viewing private messages restriction', 'buddypress-restrict' ),
+			'front' => __( 'View Private messages', 'buddypress-restrict' ),
 			'name'  => 'pm_view',
+			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/messages\/view\/[' . $allowed_chars . '\/]?\/?/", %current_url% )',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'RtMedia plugin - Restrict users from adding media.', 'buddypress_restrict' ),
-			'front' => __( 'Add media to your profile', 'buddypress_restrict' ),
+			'title' => __( 'RtMedia plugin - Restrict users from adding media.', 'buddypress-restrict' ),
+			'front' => __( 'Add media to your profile', 'buddypress-restrict' ),
 			'name'  => 'add_media',
+			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/media\/?/", %current_url% )' .
 			               '|| preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/album\/?/", %current_url% )',
 		);

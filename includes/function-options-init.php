@@ -40,8 +40,8 @@ $args = array(
 	//Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
 	'allow_sub_menu'       => true,
 	// Show the sections below the admin menu item or not
-	'menu_title'           => __( 'BuddyPress Restrict', 'buddypress_restrict' ),
-	'page_title'           => __( 'BuddyPress Restrict Options', 'buddypress_restrict' ),
+	'menu_title'           => __( 'BuddyPress Restrict', 'buddypress-restrict' ),
+	'page_title'           => __( 'BuddyPress Restrict Options', 'buddypress-restrict' ),
 	// You will need to generate a Google API key to use this feature.
 	// Please visit: https://developers.google.com/fonts/docs/developer_api#Auth
 	'google_api_key'       => '',
@@ -141,19 +141,19 @@ $args = array(
 /*$args['admin_bar_links'][] = array(
 	'id'    => 'redux-docs',
 	'href'  => 'http://docs.reduxframework.com/',
-	'title' => __( 'Documentation', 'buddypress_restrict' ),
+	'title' => __( 'Documentation', 'buddypress-restrict' ),
 );
 
 $args['admin_bar_links'][] = array(
 	//'id'    => 'redux-support',
 	'href'  => 'https://github.com/ReduxFramework/redux-framework/issues',
-	'title' => __( 'Support', 'buddypress_restrict' ),
+	'title' => __( 'Support', 'buddypress-restrict' ),
 );
 
 $args['admin_bar_links'][] = array(
 	'id'    => 'redux-extensions',
 	'href'  => 'reduxframework.com/extensions',
-	'title' => __( 'Extensions', 'buddypress_restrict' ),
+	'title' => __( 'Extensions', 'buddypress-restrict' ),
 );*/
 
 // SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
