@@ -237,7 +237,6 @@ class bp_restrict_Admin {
 			$check = false;
 			eval( '$check = ' . $v . ';' );
 			if ( $check ) {
-				var_dump( $v );exit;
 				$this->check_access( $restriction['name'] );
 			}
 		}
