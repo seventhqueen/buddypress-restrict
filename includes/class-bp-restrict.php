@@ -130,7 +130,7 @@ class BP_Restrict {
 			'title' => __( 'Members directory restriction', 'buddypress-restrict' ),
 			'front' => __( 'View members directory', 'buddypress-restrict' ),
 			'name'  => 'members_dir',
-			'condition' => 'preg_match( "/^\/' . $members_slug . '\/?$/", %current_url% )',
+			'condition' => 'bp_is_members_directory()',
 		);
 		
 		$settings[] =	array(
@@ -141,32 +141,29 @@ class BP_Restrict {
 		);
 		
 		if ( function_exists( 'bp_get_groups_root_slug' ) ) {
-			$groups_slug      = str_replace( '/', '\/', bp_get_groups_root_slug() );
-			
 			$settings[] = array(
 				'title'     => __( 'Groups directory restriction', 'buddypress-restrict' ),
 				'front'     => __( 'Access group directory', 'buddypress-restrict' ),
 				'name'      => 'groups_dir',
-				'condition' => 'preg_match("/\/' . $groups_slug . '\/?$/", %current_url% )',
+				'condition' => 'bp_is_groups_directory()',
 			);
 			$settings[] = array(
 				'title'     => __( 'Group page restriction', 'buddypress-restrict' ),
 				'front'     => __( 'Access to groups', 'buddypress-restrict' ),
 				'name'      => 'view_groups',
-				'condition' => 'preg_match("/\/' . $groups_slug . '\/[' . $allowed_chars . '\/]+\/?$/", %current_url% )',
+				'condition' => 'bp_is_group()',
 			);
 		}
 		
 		if ( function_exists( 'bp_get_activity_root_slug' ) ) {
-			$activity_slug    = str_replace( '/', '\/', bp_get_activity_root_slug() );
-			
 			$settings[] = array(
 				'title'     => __( 'Site activity restriction', 'buddypress-restrict' ),
 				'front'     => __( 'View site activity', 'buddypress-restrict' ),
 				'name'      => 'show_activity',
-				'condition' => 'preg_match("/\/' . $activity_slug . '\/?$/", %current_url% )',
+				'condition' => 'bp_is_activity_directory()',
 			);
 		}
+		
 		
 		$settings[] =	array(
 			'title' => __( 'Sending private messages restriction', 'buddypress-restrict' ),
