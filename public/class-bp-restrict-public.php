@@ -60,8 +60,8 @@ class bp_restrict_Public {
 	 * @since 1.0.0	 *
 	 */
 	public function register_hooks(){
-		add_action( 'wp_enqueue_scripts', array($this, 'enqueue_styles') );
-		add_action( 'wp_enqueue_scripts', array($this, 'enqueue_scripts') );
+		//add_action( 'wp_enqueue_scripts', array($this, 'enqueue_styles') );
+		//add_action( 'wp_enqueue_scripts', array($this, 'enqueue_scripts') );
 	}
 
 	/**
