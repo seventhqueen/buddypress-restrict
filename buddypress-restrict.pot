@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-buddypress-restrict-admin.php:170
+#: class-bp-restrict-admin.php:170
 msgid "Page Title"
 msgstr ""
 
-#: class-buddypress-restrict-admin.php:171
+#: class-bp-restrict-admin.php:171
 msgid "Menu Text"
 msgstr ""
 
-#: class-buddypress-restrict-admin.php:197
+#: class-bp-restrict-admin.php:197
 msgid "Settings"
 msgstr ""

@@ -1,6 +1,6 @@
 <?php
 /**
- * BuddyPress Restrict
+ *  BP Restrict
  *
  * Restrict BuddyPress pages or content
  *
@@ -11,17 +11,17 @@
  * @copyright SeventhQueen
  *
  * @wordpress-plugin
- * Plugin Name:       BuddyPress Restrict
+ * Plugin Name:       BP Restrict
  * Plugin URI:        http://wordpress.org/plugins
  * Description:       Restrict BuddyPress pages or content
  * Version:           1.0
  * Author:            SeventhQueen
  * Author URI:        https://seventhqueen.com
- * Text Domain:       buddypress-restrict
+ * Text Domain:       bp-restrict
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/seventhqueen/buddypress-restrict
+ * GitHub Plugin URI: https://github.com/seventhqueen/bp-restrict
  */
 
 // If this file is called directly, abort.
@@ -40,7 +40,7 @@ if (! defined('BP_RESTRICT_VERSION')) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-buddypress-restrict-activator.php
+ * This action is documented in includes/class-bp-restrict-activator.php
  */
 function activate_bp_restrict() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-restrict-activator.php';
@@ -49,7 +49,7 @@ function activate_bp_restrict() {
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-buddypress-restrict-deactivator.php
+ * This action is documented in includes/class-bp-restrict-deactivator.php
  */
 function deactivate_bp_restrict() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-restrict-deactivator.php';

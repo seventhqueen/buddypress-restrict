@@ -75,14 +75,14 @@ class BP_Restrict_Pmpro {
 			
 			'icon'       => 'el-icon-group',
 			'icon_class' => 'icon-large',
-			'title'      => __( 'PMPRO restrict', 'buddypress-restrict' ),
+			'title'      => __( 'PMPRO restrict', 'bp-restrict' ),
 			'customizer' => false,
-			'desc'       => __( 'Settings related to restrictions for Paid Memberships Pro plugin', 'buddypress-restrict' ),
+			'desc'       => __( 'Settings related to restrictions for Paid Memberships Pro plugin', 'bp-restrict' ),
 			'fields'     => array(
 				array(
 					'id'       => $this->option_name,
 					'type'     => 'callback',
-					'title'    => __( 'Membership settings', 'buddypress-restrict' ),
+					'title'    => __( 'Membership settings', 'bp-restrict' ),
 					'sub_desc' => '',
 					'callback' => array( $this, 'pmpro_data_set' ),
 				)
@@ -326,7 +326,7 @@ class BP_Restrict_Pmpro {
 			if ( isset( $current_user->membership_level ) && $current_user->membership_level->ID ) {
 				echo '<a href="' . pmpro_url( "account" ) . '"><span class="label radius pmpro_label">' . $current_user->membership_level->name . '</span></a>';
 			} else {
-				echo '<a href="' . pmpro_url( "levels" ) . '"><span class="label radius pmpro_label">' . __( "Upgrade account", 'buddypress-restrict' ) . '</span></a>';
+				echo '<a href="' . pmpro_url( "levels" ) . '"><span class="label radius pmpro_label">' . __( "Upgrade account", 'bp-restrict' ) . '</span></a>';
 			}
 		}
 	}

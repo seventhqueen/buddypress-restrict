@@ -94,7 +94,7 @@ class BP_Restrict {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'buddypress-restrict';
+		$this->plugin_name = 'bp-restrict';
 		$this->version = '1.0.0';
 
 	}
@@ -127,29 +127,29 @@ class BP_Restrict {
 		$members_slug     = str_replace( '/', '\/', bp_get_members_root_slug() );
 		
 		$settings[] = array(
-			'title' => __( 'Members directory restriction', 'buddypress-restrict' ),
-			'front' => __( 'View members directory', 'buddypress-restrict' ),
+			'title' => __( 'Members directory restriction', 'bp-restrict' ),
+			'front' => __( 'View members directory', 'bp-restrict' ),
 			'name'  => 'members_dir',
 			'condition' => 'bp_is_members_directory()',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'Restrict viewing other profiles', 'buddypress-restrict' ),
-			'front' => __( 'View members profile', 'buddypress-restrict' ),
+			'title' => __( 'Restrict viewing other profiles', 'bp-restrict' ),
+			'front' => __( 'View members profile', 'bp-restrict' ),
 			'name'  => 'view_profiles',
 			'condition' => 'bp_is_user()',
 		);
 		
 		if ( function_exists( 'bp_get_groups_root_slug' ) ) {
 			$settings[] = array(
-				'title'     => __( 'Groups directory restriction', 'buddypress-restrict' ),
-				'front'     => __( 'Access group directory', 'buddypress-restrict' ),
+				'title'     => __( 'Groups directory restriction', 'bp-restrict' ),
+				'front'     => __( 'Access group directory', 'bp-restrict' ),
 				'name'      => 'groups_dir',
 				'condition' => 'bp_is_groups_directory()',
 			);
 			$settings[] = array(
-				'title'     => __( 'Group page restriction', 'buddypress-restrict' ),
-				'front'     => __( 'Access to groups', 'buddypress-restrict' ),
+				'title'     => __( 'Group page restriction', 'bp-restrict' ),
+				'front'     => __( 'Access to groups', 'bp-restrict' ),
 				'name'      => 'view_groups',
 				'condition' => 'bp_is_group()',
 			);
@@ -157,8 +157,8 @@ class BP_Restrict {
 		
 		if ( function_exists( 'bp_get_activity_root_slug' ) ) {
 			$settings[] = array(
-				'title'     => __( 'Site activity restriction', 'buddypress-restrict' ),
-				'front'     => __( 'View site activity', 'buddypress-restrict' ),
+				'title'     => __( 'Site activity restriction', 'bp-restrict' ),
+				'front'     => __( 'View site activity', 'bp-restrict' ),
 				'name'      => 'show_activity',
 				'condition' => 'bp_is_activity_directory()',
 			);
@@ -166,24 +166,24 @@ class BP_Restrict {
 		
 		
 		$settings[] =	array(
-			'title' => __( 'Sending private messages restriction', 'buddypress-restrict' ),
-			'front' => __( 'Send Private messages', 'buddypress-restrict' ),
+			'title' => __( 'Sending private messages restriction', 'bp-restrict' ),
+			'front' => __( 'Send Private messages', 'bp-restrict' ),
 			'name'  => 'pm',
 			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/messages\/compose\/?/", %current_url% )',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'Viewing private messages restriction', 'buddypress-restrict' ),
-			'front' => __( 'View Private messages', 'buddypress-restrict' ),
+			'title' => __( 'Viewing private messages restriction', 'bp-restrict' ),
+			'front' => __( 'View Private messages', 'bp-restrict' ),
 			'name'  => 'pm_view',
 			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/messages\/view\/[' . $allowed_chars . '\/]?\/?/", %current_url% )',
 		);
 		
 		$settings[] =	array(
-			'title' => __( 'RtMedia plugin - Restrict users from adding media.', 'buddypress-restrict' ),
-			'front' => __( 'Add media to your profile', 'buddypress-restrict' ),
+			'title' => __( 'RtMedia plugin - Restrict users from adding media.', 'bp-restrict' ),
+			'front' => __( 'Add media to your profile', 'bp-restrict' ),
 			'name'  => 'add_media',
 			'logged_in' => true,
 			'condition' => 'preg_match("/\/' . $members_slug . '\/" . bp_get_loggedin_user_username() . "\/media\/?/", %current_url% )' .

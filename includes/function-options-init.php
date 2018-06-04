@@ -40,8 +40,8 @@ $args = array(
 	//Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
 	'allow_sub_menu'       => true,
 	// Show the sections below the admin menu item or not
-	'menu_title'           => __( 'BuddyPress Restrict', 'buddypress-restrict' ),
-	'page_title'           => __( 'BuddyPress Restrict Options', 'buddypress-restrict' ),
+	'menu_title'           => __( 'BuddyPress Restrict', 'bp-restrict' ),
+	'page_title'           => __( 'BuddyPress Restrict Options', 'bp-restrict' ),
 	// You will need to generate a Google API key to use this feature.
 	// Please visit: https://developers.google.com/fonts/docs/developer_api#Auth
 	'google_api_key'       => '',
@@ -81,7 +81,7 @@ $args = array(
 	// Force your panel to always open to a specific tab (by id)
 	'page_icon'            => 'icon-themes',
 	// Icon displayed in the admin panel next to your menu_title
-	'page_slug'            => 'buddypress-restrict',
+	'page_slug'            => 'bp-restrict',
 	// Page slug used to denote the panel, will be based off page title then menu title then opt_name if not provided
 	'save_defaults'        => true,
 	// On load save the defaults to DB before user clicks save or not
@@ -141,19 +141,19 @@ $args = array(
 /*$args['admin_bar_links'][] = array(
 	'id'    => 'redux-docs',
 	'href'  => 'http://docs.reduxframework.com/',
-	'title' => __( 'Documentation', 'buddypress-restrict' ),
+	'title' => __( 'Documentation', 'bp-restrict' ),
 );
 
 $args['admin_bar_links'][] = array(
 	//'id'    => 'redux-support',
 	'href'  => 'https://github.com/ReduxFramework/redux-framework/issues',
-	'title' => __( 'Support', 'buddypress-restrict' ),
+	'title' => __( 'Support', 'bp-restrict' ),
 );
 
 $args['admin_bar_links'][] = array(
 	'id'    => 'redux-extensions',
 	'href'  => 'reduxframework.com/extensions',
-	'title' => __( 'Extensions', 'buddypress-restrict' ),
+	'title' => __( 'Extensions', 'bp-restrict' ),
 );*/
 
 // SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.

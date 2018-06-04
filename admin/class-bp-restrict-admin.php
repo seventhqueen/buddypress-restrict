@@ -152,14 +152,14 @@ class bp_restrict_Admin {
 			
 			'icon'       => 'el-icon-group',
 			'icon_class' => 'icon-large',
-			'title'      => __( 'Basic restrict', 'buddypress-restrict' ),
+			'title'      => __( 'Basic restrict', 'bp-restrict' ),
 			'customizer' => false,
-			'desc'       => __( 'Basic restriction settings for Logged-in or Guest users', 'buddypress-restrict' ),
+			'desc'       => __( 'Basic restriction settings for Logged-in or Guest users', 'bp-restrict' ),
 			'fields'     => array(
 				array(
 					'id'       => $this->option_name,
 					'type'     => 'callback',
-					'title'    => __( 'Restriction settings', 'buddypress-restrict' ),
+					'title'    => __( 'Restriction settings', 'bp-restrict' ),
 					'sub_desc' => '',
 					'callback' => array( $this, 'data_set' ),
 				)
@@ -330,7 +330,7 @@ class bp_restrict_Admin {
 		
 		echo '<table class="membership-settings">';
 		foreach ( $restriction_options as $pays ) :
-			if ( $pays['logged_in'] ) {
+			if (isset( $pays['logged_in'] ) && $pays['logged_in'] ) {
 			continue;
 			}
 			?>
@@ -342,13 +342,13 @@ class bp_restrict_Admin {
 					<select id="<?php echo $pays['name']; ?>"
 					        name="<?php echo 'bp_restrict_opt' . '[' . $field['id'] . ']'; ?>[<?php echo $pays['name']; ?>][type]">
 						<option value="0"
-						        <?php if ( ! isset( $value[ $pays['name'] ]['type'] ) ) { ?>selected="selected"<?php } ?>><?php _e( 'No', 'buddypress-restrict' ); ?></option>
+						        <?php if ( ! isset( $value[ $pays['name'] ]['type'] ) ) { ?>selected="selected"<?php } ?>><?php _e( 'No', 'bp-restrict' ); ?></option>
 						<option value="1"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 1 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict All Members', 'buddypress-restrict' ); ?></option>
+						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 1 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict All Members', 'bp-restrict' ); ?></option>
 						<option value="2"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 2 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Logged In Users', 'buddypress-restrict' ); ?></option>
+						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 2 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Logged In Users', 'bp-restrict' ); ?></option>
 						<option value="3"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 3 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Guest Users', 'buddypress-restrict' ); ?></option>
+						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 3 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Guest Users', 'bp-restrict' ); ?></option>
 					</select>
 				</td>
 			</tr>
