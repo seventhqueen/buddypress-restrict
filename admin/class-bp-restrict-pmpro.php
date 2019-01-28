@@ -31,6 +31,8 @@ class BP_Restrict_Pmpro {
 	
 	private $option_name = 'pmpro_restrict';
 
+	private $options = [];
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -41,10 +43,19 @@ class BP_Restrict_Pmpro {
 		add_action( "template_redirect", array( $this, "restrict_rules" ) );
 		
 		add_shortcode( 'bp_restrict_pmpro_access', array( $this, 'access_func' ) );
-		add_action( 'bp_before_member_header_meta', array( $this, 'membership_info' ) );
+		//add_action( 'bp_before_member_header_meta', array( $this, 'membership_info' ) );
 		
 		if ( is_admin() || is_customize_preview() ) {
 			add_filter( 'redux/options/bp_restrict_opt/sections', array( $this, 'register_options' ) );
+		}
+
+		//Free access
+		if ( $this->get_option( 'pmpro_free_level' ) && $this->get_option('pmpro_free_field') && $this->get_option('pmpro_free_value') ) {
+
+			add_filter( 'pmpro_has_membership_level', [ $this, 'has_level' ], 10, 2 );
+			add_filter('pmpro_has_membership_access_filter', [ $this, 'has_membership_access_filter' ], 10, 4 );
+			add_filter( 'pmpro_get_membership_levels_for_user', [$this, 'get_membership_levels_for_user'], 10, 2);
+			add_filter('pmpro_get_membership_level_for_user', [$this, 'get_membership_level_for_user'], 10, 2 );
 		}
 		
 	}
@@ -82,12 +93,48 @@ class BP_Restrict_Pmpro {
 				array(
 					'id'       => $this->option_name,
 					'type'     => 'callback',
-					'title'    => __( 'Membership settings', 'bp-restrict' ),
+					'title'    => __( 'Membership restrictions', 'bp-restrict' ),
 					'sub_desc' => '',
 					'callback' => array( $this, 'pmpro_data_set' ),
-				)
+				),
 			)
 		);
+
+		$sections[] = array(
+
+			'icon'       => 'el-icon-group',
+			'icon_class' => 'icon-large',
+			'title'      => __( 'PMPRO Free access', 'bp-restrict' ),
+			'customizer' => false,
+			'subsection'      => true,
+			'desc'       => __( 'Give free access to some members based on profile field and value. They will automatically get the membership access you select.' .
+			                    'One example is giving Women free access by selecting the Gender field and typing Woman to the field value,', 'bp-restrict' ),
+			'fields'     => array(
+				array(
+					'id'       => 'pmpro_free_field',
+					'type'     => 'select',
+					'title'    => __( 'Field name', 'bp-restrict' ),
+					'callback' => [$this, 'get_fields' ],
+					'sub_desc' => 'Select the field will identify free access members',
+				),
+				array(
+					'id'       => 'pmpro_free_value',
+					'type'     => 'text',
+					'title'    => __( 'Field value', 'bp-restrict' ),
+					'default' => '',
+					'sub_desc' => 'Select value for the above field that will make members get free access.',
+				),
+				array(
+					'id'       => 'pmpro_free_level',
+					'type'     => 'select',
+					'title'    => __( 'Membership Level to give', 'bp-restrict' ),
+					'callback' => [ $this, 'get_levels' ],
+					'sub_desc' => 'This will be applied to members that match the settings above.',
+				),
+			)
+		);
+
+
 		
 		return $sections;
 	}
@@ -164,13 +211,18 @@ class BP_Restrict_Pmpro {
 		if ( ! $restrict_options ) {
 			$restrict_options = $this->get_restrictions();
 		}
-		
+
 		if ( pmpro_url( "levels" ) ) {
 			$default_redirect = pmpro_url( "levels" );
 		} else {
 			$default_redirect = bp_get_signup_page();
 		}
-		$default_redirect = apply_filters( 'bp_restrict_pmpro_url_redirect', $default_redirect );
+
+		if ($area == 'pm' && is_user_logged_in()) {
+			$default_redirect = bp_get_loggedin_user_link() . '/messages';
+		}
+
+		$default_redirect = apply_filters( 'bp_restrict_pmpro_url_redirect', $default_redirect, $area );
 		
 		//no restriction
 		if ( $restrict_options[ $area ]['type'] == 0 ) {
@@ -259,7 +311,6 @@ class BP_Restrict_Pmpro {
 		return true;
 	}
 
-
 	function access_func( $atts, $content = "" ) {
 		$atts = shortcode_atts( array(
 			'area' => '',
@@ -323,7 +374,7 @@ class BP_Restrict_Pmpro {
 		}
 		
 		if ( bp_is_my_profile() ) {
-			if ( isset( $current_user->membership_level ) && $current_user->membership_level->ID ) {
+			if ( isset( $current_user->membership_level ) && isset( $current_user->membership_level->ID ) ) {
 				echo '<a href="' . pmpro_url( "account" ) . '"><span class="label radius pmpro_label">' . $current_user->membership_level->name . '</span></a>';
 			} else {
 				echo '<a href="' . pmpro_url( "levels" ) . '"><span class="label radius pmpro_label">' . __( "Upgrade account", 'bp-restrict' ) . '</span></a>';
@@ -331,7 +382,138 @@ class BP_Restrict_Pmpro {
 		}
 	}
 
+	public function get_membership_level_for_user( $level, $user_id ) {
+		if (  $this->check_free_access( $user_id )  === true ) {
 
+			$levels = pmpro_getAllLevels( true );
+			$levels = array_reverse( $levels, true );
+			// Round off prices
+			if ( ! empty( $levels ) ) {
+				foreach( $levels as $key => $level ) {
+					if ( $level->id == $this->get_option('pmpro_free_level') ) {
+						$level->ID              = $level->id;
+						$level->initial_payment = pmpro_round_price( $level->initial_payment );
+						$level->billing_amount  = pmpro_round_price( $level->billing_amount );
+						$level->trial_amount    = pmpro_round_price( $level->trial_amount );
+						$level->enddate         = 0;
+
+						return $levels[ $key ];
+					}
+				}
+
+			}
+		}
+
+		return $level;
+	}
+
+	public function get_membership_levels_for_user( $levels, $user_id ) {
+		if ( $this->check_free_access( $user_id )  === true ) {
+
+			$levels = pmpro_getAllLevels( true );
+			$levels = array_reverse( $levels, true );
+			// Round off prices
+			if ( ! empty( $levels ) ) {
+				foreach( $levels as $key => $level ) {
+					if ( $level->id == $this->get_option('pmpro_free_level') ) {
+						$level->ID                       = $level->id;
+						$levels[ $key ]->initial_payment = pmpro_round_price( $level->initial_payment );
+						$levels[ $key ]->billing_amount  = pmpro_round_price( $level->billing_amount );
+						$levels[ $key ]->trial_amount    = pmpro_round_price( $level->trial_amount );
+						$levels[ $key ]->enddate         = 0;
+
+						return [ $key => $levels[ $key ] ];
+					}
+				}
+			}
+		}
+		return $levels;
+	}
+
+	public function has_membership_access_filter( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
+		if( isset( $myuser->ID ) ) {
+
+			if ( $this->check_free_access( $myuser->ID )  === true ) {
+				return true;
+			}
+		}
+
+		return $hasaccess;
+	}
+
+	public function has_level( $return, $user_id ) {
+
+		if ( $this->check_free_access( $user_id ) === true ) {
+			return $this->get_option( 'pmpro_free_level' );
+		}
+
+		return $return;
+	}
+
+	private function get_option( $name ) {
+
+		if ( empty( $this->options ) ) {
+			$this->options = get_option( 'bp_restrict_opt' );
+		}
+
+		if ( isset( $this->options[ $name ] ) ) {
+			return $this->options[ $name ];
+		}
+		return false;
+
+	}
+
+	private function check_free_access( $user_id ) {
+
+		global $wpdb;
+		$value_to_match = $this->get_option('pmpro_free_value');
+		$table_name_data = $wpdb->base_prefix  . 'bp_xprofile_data';
+		$field_id = $this->get_option('pmpro_free_field');
+
+		if ( $field_id ) {
+			$field_value = $wpdb->get_var( $wpdb->prepare( "SELECT value FROM {$table_name_data} WHERE field_id = %d AND user_id IN ({$user_id})", $field_id ) );
+			if ( $field_value && $field_value == $value_to_match ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	public function get_fields( $field, $value = ''  ) {
+
+		if ( function_exists( 'bp_is_active' ) && bp_is_active( 'xprofile' ) ) {
+			if ( function_exists( 'bp_has_profile' ) ) {
+				if ( bp_has_profile( 'hide_empty_fields=0' ) ) {
+
+					echo '<select id="'. $field['id'] .'" name="bp_restrict_opt['. $field['id'] .']"><option value="">--</option>';
+
+					while ( bp_profile_groups() ) {
+						bp_the_profile_group();
+						while ( bp_profile_fields() ) {
+							bp_the_profile_field();
+							$field_id = bp_get_the_profile_field_id();
+							echo '<option '. selected( $value, $field_id ) .' value="'. $field_id .'">'. bp_get_the_profile_field_name() .'</option>';
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	public function get_levels( $field, $value = '' ) {
+		echo '<select id="'. $field['id'] .'" name="bp_restrict_opt['. $field['id'] .']"><option value="">--</option>';
+
+		$levels = pmpro_getAllLevels( true, true );
+
+			foreach ( $levels as $level ) {
+
+				echo '<option '. selected( $value, $level->id ) .' value="'. $level->id .'">'. $level->name .'</option>';
+			}
+
+	}
 
 	
 

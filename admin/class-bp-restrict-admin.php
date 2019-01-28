@@ -229,7 +229,7 @@ class bp_restrict_Admin {
 		
 		//loop through remaining restrictions
 		foreach ( $all_restrictions as $restriction ) {
-			if(  $restriction['logged_in'] ) {
+			if(  isset( $restriction['logged_in'] ) && $restriction['logged_in'] ) {
 				continue;
 			}
 			$v = str_replace( '%current_url%', '"'. $uri . '"', $restriction['condition'] );

@@ -137,9 +137,9 @@ class BP_Restrict {
 			'title' => __( 'Restrict viewing other profiles', 'bp-restrict' ),
 			'front' => __( 'View members profile', 'bp-restrict' ),
 			'name'  => 'view_profiles',
-			'condition' => 'bp_is_user()',
+			'condition' => 'bp_is_user() && ! bp_is_my_profile()',
 		);
-		
+
 		if ( function_exists( 'bp_get_groups_root_slug' ) ) {
 			$settings[] = array(
 				'title'     => __( 'Groups directory restriction', 'bp-restrict' ),

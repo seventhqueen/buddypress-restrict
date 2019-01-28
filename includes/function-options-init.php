@@ -12,14 +12,6 @@ if ( ! class_exists( 'Redux' ) ) {
 // This is your option name where all the Redux data is stored.
 $opt_name = "bp_restrict_opt";
 
-/*
- *
- * --> Used within different fields. Simply examples. Search for ACTUAL DECLARATION for field examples
- *
- */
-
-
-
 /**
  * ---> SET ARGUMENTS
  * All the possible arguments for Redux.
