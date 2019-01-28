@@ -52,7 +52,7 @@ class BP_Restrict_Pmpro {
 		//Free access
 		if ( $this->get_option( 'pmpro_free_level' ) && $this->get_option('pmpro_free_field') && $this->get_option('pmpro_free_value') ) {
 
-			add_filter( 'pmpro_has_membership_level', [ $this, 'has_level' ], 10, 2 );
+			add_filter( 'pmpro_has_membership_level', [ $this, 'has_level' ], 10, 3 );
 			add_filter('pmpro_has_membership_access_filter', [ $this, 'has_membership_access_filter' ], 10, 4 );
 			add_filter( 'pmpro_get_membership_levels_for_user', [$this, 'get_membership_levels_for_user'], 10, 2);
 			add_filter('pmpro_get_membership_level_for_user', [$this, 'get_membership_level_for_user'], 10, 2 );
@@ -441,11 +441,25 @@ class BP_Restrict_Pmpro {
 		return $hasaccess;
 	}
 
-	public function has_level( $return, $user_id ) {
+	public function has_level( $return, $user_id, $levels ) {
 
 		if ( $this->check_free_access( $user_id ) === true ) {
-			return $this->get_option( 'pmpro_free_level' );
+
+			if ( is_array( $levels ) ) {
+				foreach ( $levels as $level ) {
+					if ( $level == $this->get_option('pmpro_free_field') ) {
+						return true;
+					}
+				}
+			} else {
+				if ( $levels == $this->get_option('pmpro_free_field') ) {
+					return true;
+				}
+			}
+
 		}
+
+
 
 		return $return;
 	}

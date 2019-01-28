@@ -14,7 +14,7 @@
  * Plugin Name:       BP Restrict
  * Plugin URI:        http://wordpress.org/plugins
  * Description:       Restrict BuddyPress pages or content
- * Version:           1.1
+ * Version:           1.1.1
  * Author:            SeventhQueen
  * Author URI:        https://seventhqueen.com
  * Text Domain:       bp-restrict
@@ -34,7 +34,7 @@ if (! defined('BP_RESTRICT_DIR')) {
 }
 
 if (! defined('BP_RESTRICT_VERSION')) {
-	define('BP_RESTRICT_VERSION', '1.1');
+	define('BP_RESTRICT_VERSION', '1.1.1');
 }
 
 

@@ -3,7 +3,7 @@ Contributors: seventhqueen
 Tags: buddypress, restrict, restriction, pmpro
 Requires at least: 4.5
 Tested up to: 4.9.9
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,9 @@ This section describes how to install the plugin and get it working.
 2. Paid Memberships Pro restrictions panel
 
 == Changelog ==
+
+= 1.1.1 =
+* Extra checks added for free access to Paid memberships Pro memberships
 
 = 1.1 =
 * Added the ability to give a free access to some BuddyPress members based on specific profile field and value
