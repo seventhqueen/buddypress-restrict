@@ -2,8 +2,8 @@
 Contributors: seventhqueen
 Tags: buddypress, buddypress restrictions, bp restrictions, restrict, restriction, pmpro
 Requires at least: 4.5
-Tested up to: 5.1
-Stable tag: 1.2
+Tested up to: 5.4
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,7 +56,10 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
-= 1.1.1 =
+= 1.3.0 =
+- Updated options framework panel
+
+= 1.2.0 =
 * Paid memberships Pro viewing messages restriction now generate a notice to upgrade account.
 
 = 1.1.1 =
