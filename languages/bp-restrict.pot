@@ -1,0 +1,181 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: BP Restrict\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-05 12:34+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-5.0.1"
+
+#: includes/class-bp-restrict.php:146
+msgid "Access group directory"
+msgstr ""
+
+#: includes/class-bp-restrict.php:152
+msgid "Access to groups"
+msgstr ""
+
+#: includes/class-bp-restrict.php:186
+msgid "Add media to your profile"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:155
+msgid "Basic restrict"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:157
+msgid "Basic restriction settings for Logged-in or Guest users"
+msgstr ""
+
+#. Name of the plugin
+msgid "BP Restrict"
+msgstr ""
+
+#: includes/function-options-init.php:35
+msgid "BuddyPress Restrict"
+msgstr ""
+
+#: includes/function-options-init.php:36
+msgid "BuddyPress Restrict Options"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:116
+msgid "Field name"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:123
+msgid "Field value"
+msgstr ""
+
+#: includes/class-bp-restrict.php:151
+msgid "Group page restriction"
+msgstr ""
+
+#: includes/class-bp-restrict.php:145
+msgid "Groups directory restriction"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://wordpress.org/plugins"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://seventhqueen.com"
+msgstr ""
+
+#: includes/class-bp-restrict.php:130
+msgid "Members directory restriction"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:130
+msgid "Membership Level to give"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:96
+msgid "Membership restrictions"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:345
+msgid "No"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:110
+msgid ""
+"One example is giving Women free access by selecting the Gender field and "
+"typing Woman to the field value,"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:107
+msgid "PMPRO Free access"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:89
+msgid "PMPRO restrict"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:347
+msgid "Restrict All Members"
+msgstr ""
+
+#. Description of the plugin
+msgid "Restrict BuddyPress pages or content"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:351
+msgid "Restrict Guest Users"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:349
+msgid "Restrict Logged In Users"
+msgstr ""
+
+#: includes/class-bp-restrict.php:137
+msgid "Restrict viewing other profiles"
+msgstr ""
+
+#: admin/class-bp-restrict-admin.php:162
+msgid "Restriction settings"
+msgstr ""
+
+#: includes/class-bp-restrict.php:185
+msgid "RtMedia plugin - Restrict users from adding media."
+msgstr ""
+
+#: includes/class-bp-restrict.php:170
+msgid "Send Private messages"
+msgstr ""
+
+#: includes/class-bp-restrict.php:169
+msgid "Sending private messages restriction"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:91
+msgid "Settings related to restrictions for Paid Memberships Pro plugin"
+msgstr ""
+
+#. Author of the plugin
+msgid "SeventhQueen"
+msgstr ""
+
+#: includes/class-bp-restrict.php:160
+msgid "Site activity restriction"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:409
+msgid "Upgrade account"
+msgstr ""
+
+#: includes/class-bp-restrict.php:131
+msgid "View members directory"
+msgstr ""
+
+#: includes/class-bp-restrict.php:138
+msgid "View members profile"
+msgstr ""
+
+#: includes/class-bp-restrict.php:178
+msgid "View Private messages"
+msgstr ""
+
+#: includes/class-bp-restrict.php:161
+msgid "View site activity"
+msgstr ""
+
+#: includes/class-bp-restrict.php:177
+msgid "Viewing private messages restriction"
+msgstr ""
+
+#: admin/class-bp-restrict-pmpro.php:223
+#, php-format
+msgid ""
+"You do not have access to view messages. Please <a href=\"%s\">upgrade your "
+"account</a>."
+msgstr ""
