@@ -67,7 +67,9 @@ class BP_Restrict_Pmpro {
 	 * @return bp_restrict_Pmpro
 	 */
 	public static function create() {
-		return new self();
+		$instance = new self();
+
+		return $instance;
 	}
 
 
@@ -184,6 +186,7 @@ class BP_Restrict_Pmpro {
 			$check = false;
 			eval( '$check = ' . $v . ';' );
 			if ( $check ) {
+
 				$this->check_access( $restriction['name'] );
 			}
 		}
@@ -207,6 +210,7 @@ class BP_Restrict_Pmpro {
 	 */
 	public function check_access( $area, $restrict_options = null, $return = false ) {
 		global $current_user;
+		$restricted = false;
 
 		if ( ! $restrict_options ) {
 			$restrict_options = $this->get_restrictions();
@@ -216,15 +220,6 @@ class BP_Restrict_Pmpro {
 			$default_redirect = pmpro_url( "levels" );
 		} else {
 			$default_redirect = bp_get_signup_page();
-		}
-
-		if ( $area == 'pm_view' && is_user_logged_in() ) {
-
-			bp_core_add_message( sprintf( __( 'You do not have access to view messages. Please <a href="%s">upgrade your account</a>.', 'bp-restrict' ), pmpro_url( "levels" ) ) );
-
-			add_action( 'bp_actions', [ $this, 'bp_core_setup_message' ], 5 );
-
-			$default_redirect = bp_get_loggedin_user_link() . '/messages';
 		}
 
 		$default_redirect = apply_filters( 'bp_restrict_pmpro_url_redirect', $default_redirect, $area );
@@ -245,23 +240,36 @@ class BP_Restrict_Pmpro {
 
 			//if restrict my level
 			if ( $restrict_options[ $area ]['type'] == 2 && isset( $restrict_options[ $area ]['levels'] ) && is_array( $restrict_options[ $area ]['levels'] ) && ! empty( $restrict_options[ $area ]['levels'] ) && pmpro_hasMembershipLevel( $restrict_options[ $area ]['levels'] ) ) {
-				$this->return_restriction( $return, $default_redirect );
-				exit;
+				$restricted = true;
 			}
 
 			//logged in but not a member
 		} else if ( is_user_logged_in() ) {
 			if ( $restrict_options[ $area ]['type'] == 2 && isset( $restrict_options[ $area ]['not_member'] ) && $restrict_options[ $area ]['not_member'] == 1 ) {
-				$this->return_restriction( $return, $default_redirect );
-				exit;
+				$restricted = true;
 			}
 		} //not logged in
 		else {
 			if ( $restrict_options[ $area ]['type'] == 2 && isset( $restrict_options[ $area ]['guest'] ) && $restrict_options[ $area ]['guest'] == 1 ) {
-				$this->return_restriction( $return, $default_redirect );
-				exit;
+				$restricted = true;
 			}
 		}
+
+		if ( $restricted === true ) {
+
+			if ( $area === 'pm_view' && is_user_logged_in() ) {
+
+				bp_core_add_message( sprintf( __( 'You do not have access to view messages. Please <a href="%s">upgrade your account</a>.', 'bp-restrict' ), pmpro_url( "levels" ) ) );
+
+				add_action( 'bp_actions', [ $this, 'bp_core_setup_message' ], 5 );
+
+				$default_redirect = bp_get_loggedin_user_link() . '/messages';
+			}
+
+			$this->return_restriction( $return, $default_redirect );
+			exit;
+		}
+
 	}
 
 	function bp_core_setup_message() {

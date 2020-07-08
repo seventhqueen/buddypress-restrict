@@ -11,9 +11,6 @@ Restrict BuddyPress pages or content for visitors or different membership plugin
 
 == Description ==
 
-Manage BuddyPress restrictions for certain areas like Members Directory, Groups Directory, Viewing profiles for Paid Memberships Pro plugin.
-More plugins coming soon
-
 New: Added the ability to give free access to some BuddyPress members based on specific profile field and value.
 Works with Paid memberships Pro.
 
@@ -58,6 +55,10 @@ This section describes how to install the plugin and get it working.
 2. Paid Memberships Pro restrictions panel
 
 == Changelog ==
+
+
+= 1.4.0 =
+- Fixes View message restriction message showing even if you have access to viewing messages
 
 = 1.3.0 =
 - Updated options framework panel
