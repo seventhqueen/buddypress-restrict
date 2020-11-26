@@ -2,8 +2,8 @@
 Contributors: seventhqueen
 Tags: buddypress, buddypress restrictions, bp restrictions, restrict, restriction, pmpro
 Requires at least: 4.5
-Tested up to: 5.4.2
-Stable tag: 1.4.0
+Tested up to: 5.5.1
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,9 +56,11 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 1.4.1 =
+* Fixed a PHP notice in latest versions
 
 = 1.4.0 =
-- Fixes View message restriction message showing even if you have access to viewing messages
+* Fixes View message restriction message showing even if you have access to viewing messages
 
 = 1.3.0 =
 - Updated options framework panel
