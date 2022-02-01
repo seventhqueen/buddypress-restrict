@@ -1,9 +1,9 @@
 === Restrictions for BuddyPress ===
 Contributors: seventhqueen
 Tags: buddypress, buddypress restrictions, bp restrictions, restrict, restriction, pmpro
-Requires at least: 4.5
-Tested up to: 5.5.1
-Stable tag: 1.4.1
+Requires at least: 5.0
+Tested up to: 5.9.0
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,9 @@ This section describes how to install the plugin and get it working.
 2. Paid Memberships Pro restrictions panel
 
 == Changelog ==
+
+= 1.5.0 =
+* Update redux framework. BuddyBoss compatibility.
 
 = 1.4.1 =
 * Fixed a PHP notice in latest versions
