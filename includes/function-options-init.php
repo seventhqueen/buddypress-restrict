@@ -10,7 +10,7 @@ if ( ! class_exists( 'Redux' ) ) {
 
 
 // This is your option name where all the Redux data is stored.
-$opt_name = "bp_restrict_opt";
+$opt_name = 'bp_restrict_opt';
 
 /**
  * ---> SET ARGUMENTS
@@ -29,7 +29,7 @@ $args = array(
 	'display_version'      => BP_RESTRICT_VERSION,
 	// Version that appears at the top of your panel
 	'menu_type'            => 'submenu',
-	//Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
+	// Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
 	'allow_sub_menu'       => true,
 	// Show the sections below the admin menu item or not
 	'menu_title'           => __( 'BuddyPress Restrict', 'bp-restrict' ),
@@ -42,7 +42,7 @@ $args = array(
 	// Must be defined to add google fonts to the typography module
 	'async_typography'     => true,
 	// Use a asynchronous font on the front end or font string
-	//'disable_google_fonts_link' => true,                    // Disable this in case you want to create your own google fonts loader
+	// 'disable_google_fonts_link' => true,                    // Disable this in case you want to create your own google fonts loader
 	'admin_bar'            => true,
 	// Show the panel pages on the admin bar
 	'admin_bar_icon'       => 'dashicons-portfolio',
@@ -57,8 +57,8 @@ $args = array(
 	// If dev_mode is enabled, will notify developer of updated versions available in the GitHub Repo
 	'customizer'           => true,
 	// Enable basic customizer support
-	//'open_expanded'     => true,                    // Allow you to start the panel in an expanded way initially.
-	//'disable_save_warn' => true,                    // Disable the save warning when a user changes a field
+	// 'open_expanded'     => true,                    // Allow you to start the panel in an expanded way initially.
+	// 'disable_save_warn' => true,                    // Disable the save warning when a user changes a field
 
 	// OPTIONAL -> Give you extra features
 	'page_priority'        => null,
@@ -126,51 +126,104 @@ $args = array(
 				'event'    => 'click mouseleave',
 			),
 		),
-	)
+	),
 );
 
-// ADMIN BAR LINKS -> Setup custom links in the admin bar menu as external items.
-/*$args['admin_bar_links'][] = array(
-	'id'    => 'redux-docs',
-	'href'  => 'http://docs.reduxframework.com/',
-	'title' => __( 'Documentation', 'bp-restrict' ),
-);
-
-$args['admin_bar_links'][] = array(
-	//'id'    => 'redux-support',
-	'href'  => 'https://github.com/ReduxFramework/redux-framework/issues',
-	'title' => __( 'Support', 'bp-restrict' ),
-);
-
-$args['admin_bar_links'][] = array(
-	'id'    => 'redux-extensions',
-	'href'  => 'reduxframework.com/extensions',
-	'title' => __( 'Extensions', 'bp-restrict' ),
-);*/
-
-// SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
-/*$args['share_icons'][] = array(
-	'url'   => 'https://www.facebook.com/pages/Sevethqueen.themes',
-	'title' => 'Like us on Facebook',
-	'icon'  => 'el el-facebook'
-);
-$args['share_icons'][] = array(
-	'url'   => 'http://twitter.com/seventhqueen',
-	'title' => 'Follow us on Twitter',
-	'icon'  => 'el el-twitter'
-);*/
-
-
-// Panel Intro text -> before the form
-
-//$args['intro_text'] = __( '<p>Plugins General settings page</p>', 'fabulous');
 
 
 // Add content after the form.
 $args['footer_text'] = '';
 
-Redux::setArgs( $opt_name, $args );
+Redux::set_args( $opt_name, $args );
 
 /*
  * ---> END ARGUMENTS
  */
+
+
+ // -> START Basic Fields
+Redux::set_section(
+	$opt_name,
+	array(
+		'id'         => 'basic-restrict-section',
+		'icon'       => 'el-icon-group',
+		'icon_class' => 'icon-large',
+		'title'      => __( 'Basic restrict', 'bp-restrict' ),
+		'customizer' => false,
+		'desc'       => __( 'Basic restriction settings for Logged-in or Guest users', 'bp-restrict' ),
+		'fields'     => array(
+			array(
+				'id'       => $this->option_name,
+				'type'     => 'callback',
+				'title'    => __( 'Restriction settings', 'bp-restrict' ),
+				'sub_desc' => '',
+				'callback' => 'bp_restrict_basic_data_set',
+			),
+		),
+	)
+);
+
+
+/**
+ * Options settings callback function
+ *
+ * @global object $wpdb
+ *
+ * @param string $field
+ * @param array  $value
+ */
+function bp_restrict_basic_data_set( $field, $value ) {
+
+	if ( ! is_admin() && ! is_customize_preview()) {
+		return;
+	}
+
+	global $wpdb;
+	if ( empty( $value ) && ! is_array( $value ) ) {
+		$value = array();
+	}
+
+	$restriction_options = bp_restrict()->get_settings();
+
+	echo '<table class="membership-settings">';
+	foreach ( $restriction_options as $pays ) :
+		if ( isset( $pays['logged_in'] ) && $pays['logged_in'] ) {
+			continue;
+		}
+		?>
+			<tr>
+				<td scope="row" valign="top">
+					<label for="<?php echo $pays['name']; ?>"><strong><?php echo $pays['title']; ?></strong></label>
+				</td>
+				<td>
+					<select id="<?php echo $pays['name']; ?>"
+							name="<?php echo 'bp_restrict_opt' . '[' . $field['id'] . ']'; ?>[<?php echo $pays['name']; ?>][type]">
+						<option value="0"
+							<?php
+							if ( ! isset( $value[ $pays['name'] ]['type'] ) ) {
+								?>
+								selected="selected"<?php } ?>><?php _e( 'No', 'bp-restrict' ); ?></option>
+						<option value="1"
+							<?php
+							if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 1 ) {
+								?>
+								selected="selected"<?php } ?>><?php _e( 'Restrict All Members', 'bp-restrict' ); ?></option>
+						<option value="2"
+							<?php
+							if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 2 ) {
+								?>
+								selected="selected"<?php } ?>><?php _e( 'Restrict Logged In Users', 'bp-restrict' ); ?></option>
+						<option value="3"
+							<?php
+							if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 3 ) {
+								?>
+								selected="selected"<?php } ?>><?php _e( 'Restrict Guest Users', 'bp-restrict' ); ?></option>
+					</select>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		
+		<?php
+
+		echo '</table>';
+}

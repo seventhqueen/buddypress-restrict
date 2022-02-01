@@ -74,10 +74,6 @@ class bp_restrict_Admin {
 	 */
 	public function register_hooks() {
 		
-		if ( is_admin() || is_customize_preview() ) {
-			add_filter( 'redux/options/bp_restrict_opt/sections', array( $this, 'register_options' ) );
-		}
-		
 		add_action( "template_redirect", array( $this, "restrict_rules" ) );
 		
 		//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -147,27 +143,6 @@ class bp_restrict_Admin {
 
 	}
 	
-	public function register_options( $sections ) {
-		$sections[] = array(
-			
-			'icon'       => 'el-icon-group',
-			'icon_class' => 'icon-large',
-			'title'      => __( 'Basic restrict', 'bp-restrict' ),
-			'customizer' => false,
-			'desc'       => __( 'Basic restriction settings for Logged-in or Guest users', 'bp-restrict' ),
-			'fields'     => array(
-				array(
-					'id'       => $this->option_name,
-					'type'     => 'callback',
-					'title'    => __( 'Restriction settings', 'bp-restrict' ),
-					'sub_desc' => '',
-					'callback' => array( $this, 'data_set' ),
-				)
-			)
-		);
-		
-		return $sections;
-	}
 
 	public function load_options() {
 		if ( file_exists( BP_RESTRICT_DIR . 'includes/function-options-init.php' ) ) {
@@ -310,53 +285,6 @@ class bp_restrict_Admin {
 		}
 	}
 	
-	
-	/**
-	 * Options settings callback function
-	 *
-	 * @global object $wpdb
-	 *
-	 * @param string $field
-	 * @param array $value
-	 */
-	public function data_set( $field, $value ) {
-		
-		global $wpdb;
-		if ( empty( $value ) && ! is_array( $value ) ) {
-			$value = [];
-		}
-		
-		$restriction_options = bp_restrict()->get_settings();
-		
-		echo '<table class="membership-settings">';
-		foreach ( $restriction_options as $pays ) :
-			if (isset( $pays['logged_in'] ) && $pays['logged_in'] ) {
-			continue;
-			}
-			?>
-			<tr>
-				<td scope="row" valign="top">
-					<label for="<?php echo $pays['name']; ?>"><strong><?php echo $pays['title']; ?></strong></label>
-				</td>
-				<td>
-					<select id="<?php echo $pays['name']; ?>"
-					        name="<?php echo 'bp_restrict_opt' . '[' . $field['id'] . ']'; ?>[<?php echo $pays['name']; ?>][type]">
-						<option value="0"
-						        <?php if ( ! isset( $value[ $pays['name'] ]['type'] ) ) { ?>selected="selected"<?php } ?>><?php _e( 'No', 'bp-restrict' ); ?></option>
-						<option value="1"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 1 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict All Members', 'bp-restrict' ); ?></option>
-						<option value="2"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 2 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Logged In Users', 'bp-restrict' ); ?></option>
-						<option value="3"
-						        <?php if ( isset( $value[ $pays['name'] ]['type'] ) && $value[ $pays['name'] ]['type'] == 3 ) { ?>selected="selected"<?php } ?>><?php _e( 'Restrict Guest Users', 'bp-restrict' ); ?></option>
-					</select>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-		
-		<?php
-		
-		echo '</table>';
-	}
+
 
 }

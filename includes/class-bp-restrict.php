@@ -122,6 +122,10 @@ class BP_Restrict {
 	}
 
 	public function get_settings() {
+
+		if (! function_exists('bp_get_members_root_slug')) {
+			return [];
+		}
 		$settings      = [];
 		$allowed_chars = apply_filters( 'bp_restrict_allowed_chars', "a-z 0-9~%.:_\-" );
 		$members_slug  = str_replace( '/', '\/', bp_get_members_root_slug() );
