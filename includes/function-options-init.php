@@ -134,7 +134,7 @@ $args = array(
 // Add content after the form.
 $args['footer_text'] = '';
 
-Redux::set_args( $opt_name, $args );
+Redux::setArgs( $opt_name, $args );
 
 /*
  * ---> END ARGUMENTS
