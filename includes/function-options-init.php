@@ -139,7 +139,9 @@ Redux::setArgs( $opt_name, $args );
 /*
  * ---> END ARGUMENTS
  */
-
+if ( ! method_exists( 'Redux', 'set_section' ) ) {
+	return;
+}
 
  // -> START Basic Fields
 Redux::set_section(
@@ -174,7 +176,7 @@ Redux::set_section(
  */
 function bp_restrict_basic_data_set( $field, $value ) {
 
-	if ( ! is_admin() && ! is_customize_preview()) {
+	if ( ! is_admin() && ! is_customize_preview() ) {
 		return;
 	}
 
