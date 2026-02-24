@@ -1,3 +1,0 @@
-[submodule "includes/options"]
-	path = includes/options
-	url = git@gitlab.com:sq-framework/options.git

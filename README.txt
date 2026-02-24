@@ -2,8 +2,8 @@
 Contributors: seventhqueen
 Tags: buddypress, buddypress restrictions, bp restrictions, restrict, restriction, pmpro
 Requires at least: 5.0
-Tested up to: 5.9.0
-Stable tag: 1.5.2
+Tested up to: 6.7
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,9 @@ This section describes how to install the plugin and get it working.
 2. Paid Memberships Pro restrictions panel
 
 == Changelog ==
+
+= 1.5.3 =
+* Security fix: Added capability check and nonce verification to tracking optin/optout handler
 
 = 1.5.2 =
 * Fix Redux framework error 
