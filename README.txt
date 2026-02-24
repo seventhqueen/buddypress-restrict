@@ -1,6 +1,6 @@
 === Restrictions for BuddyPress ===
 Contributors: seventhqueen
-Tags: buddypress, buddypress restrictions, bp restrictions, restrict, restriction, pmpro
+Tags: buddypress, buddypress restrictions, restrict, restriction, pmpro
 Requires at least: 5.0
 Tested up to: 6.9
 Stable tag: 1.5.3
