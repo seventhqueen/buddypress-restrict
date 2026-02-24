@@ -8,7 +8,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Control who can access BuddyPress pages, profiles, groups, and activity. Restrict by visitor status, membership level, or profile field — with Paid Memberships Pro integration.
+Restrict BuddyPress profiles, groups, activity, and messages by login status, membership level, or profile field.
 
 == Description ==
 
