@@ -1,93 +1,154 @@
 === Restrictions for BuddyPress ===
 Contributors: seventhqueen
-Tags: buddypress, buddypress restrictions, restrict, restriction, pmpro
+Tags: buddypress, restrict content, membership, access control, pmpro
 Requires at least: 5.0
 Tested up to: 6.9
 Stable tag: 1.5.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Restrict BuddyPress pages or content for visitors or different membership plugins.
+Control who can access BuddyPress pages, profiles, groups, and activity. Restrict by visitor status, membership level, or profile field — with Paid Memberships Pro integration.
 
 == Description ==
 
-New: Added the ability to give free access to some BuddyPress members based on specific profile field and value.
-Works with Paid memberships Pro.
+**Restrictions for BuddyPress** gives you full control over who can see and access your BuddyPress community pages. Hide profiles, groups, activity, and messages from visitors, non-members, or specific membership levels.
 
-This plugin helps you add restrictions for the following BuddyPress areas:
-* BuddyPress Members directory
-* Viewing other BuddyPress profiles
-* BuddyPress Group directory
-* Single BuddyPress Group page
-* Site-wide activity page
+Perfect for **membership sites**, **private communities**, **paid networks**, and **gated BuddyPress installations**.
 
-Paid Membership Pro integration. You can apply restrictions based on your already defined membership levels.
+= What You Can Restrict =
+
+* **Members Directory** — Hide the full members list from visitors or non-members
+* **Member Profiles** — Control who can view individual BuddyPress profiles
+* **Groups Directory** — Restrict access to the groups listing page
+* **Single Group Pages** — Lock individual group pages behind membership
+* **Site-Wide Activity** — Hide the activity stream from unauthorized users
+* **Private Messages** — Restrict messaging to specific membership levels
+
+= Membership Integration =
+
+Seamlessly integrates with **Paid Memberships Pro (PMPro)**:
+
+* Apply restrictions based on your existing membership levels
+* Show upgrade prompts to non-members trying to access restricted content
+* Mix and match — some areas free, some members-only
+
+= Free Access by Profile Field =
+
+Grant free access to specific BuddyPress members based on a **profile field value** — no membership plugin required. Ideal for:
+
+* Giving VIP access to users with a specific role or profile attribute
+* Creating tiered access without a full membership setup
+* Whitelisting beta testers or early adopters
+
+= BuddyBoss Compatible =
+
+Fully compatible with **BuddyBoss Platform**, so your restrictions work whether you're running classic BuddyPress or BuddyBoss.
+
+= How It Works =
+
+1. Install and activate the plugin
+2. Go to **Settings → BP Restrict**
+3. Choose which BuddyPress areas to restrict
+4. Select restriction type: visitors, all non-members, or specific membership levels
+5. Set a custom redirect URL or restriction message
+6. Done — your community is protected
+
+= Use Cases =
+
+* **Private communities** — Only logged-in members can browse profiles and groups
+* **Paid membership sites** — Gate BuddyPress features behind PMPro membership levels
+* **Corporate intranets** — Restrict the social layer to employees only
+* **Online courses** — Let students access the community, hide it from everyone else
+* **Dating sites** — Require membership to view profiles or send messages
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+= From WordPress Dashboard =
 
-= Using The WordPress Dashboard =
+1. Go to **Plugins → Add New**
+2. Search for **"Restrictions for BuddyPress"**
+3. Click **Install Now**, then **Activate**
+4. Configure under **Settings → BP Restrict**
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'BuddyPress Restrict'
-3. Click 'Install Now'
-4. Activate the plugin on the Plugin dashboard
-
-= Uploading in WordPress Dashboard =
-
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Navigate to the 'Upload' area
-3. Select `bp-restrict.zip` from your computer
-4. Click 'Install Now'
-5. Activate the plugin in the Plugin dashboard
-
-= Using FTP =
+= Manual Upload =
 
 1. Download `bp-restrict.zip`
-2. Extract the `bp-restrict` directory to your computer
-3. Upload the `bp-restrict` directory to the `/wp-content/plugins/` directory
-4. Activate the plugin in the Plugin dashboard
+2. Go to **Plugins → Add New → Upload Plugin**
+3. Select the zip file and click **Install Now**
+4. Activate and configure under **Settings → BP Restrict**
+
+== Frequently Asked Questions ==
+
+= Does this plugin work without Paid Memberships Pro? =
+
+Yes! You can restrict BuddyPress areas based on login status (visitors vs. logged-in users) or based on BuddyPress profile field values — no membership plugin required. PMPro integration is optional.
+
+= Does it work with BuddyBoss? =
+
+Yes, Restrictions for BuddyPress is fully compatible with BuddyBoss Platform.
+
+= Can I show a custom message to restricted users? =
+
+Yes. You can set a custom restriction message or redirect users to a specific page (like a registration or upgrade page).
+
+= Can I restrict only certain membership levels? =
+
+Yes. With Paid Memberships Pro active, you can choose exactly which membership levels have access to each BuddyPress area.
+
+= Will restricted pages still appear in menus and search? =
+
+The plugin restricts access to BuddyPress pages. Menu visibility depends on your theme or menu settings. We recommend using a menu visibility plugin alongside this one for the best experience.
+
+= Is it compatible with the latest WordPress and PHP versions? =
+
+Yes. Tested up to WordPress 6.9 and requires PHP 7.4 or higher.
 
 == Screenshots ==
 
-1. Admin panel screen shot for general BuddyPress restrictions
-2. Paid Memberships Pro restrictions panel
+1. General BuddyPress restriction settings — control access to profiles, groups, activity, and messages
+2. Paid Memberships Pro integration — apply restrictions based on membership levels
 
 == Changelog ==
 
 = 1.5.3 =
-* Security fix: Added capability check and nonce verification to tracking optin/optout handler
+* **Security fix:** Updated bundled Redux Framework to v4.5.10, removing vulnerable Appsero tracking library (CVE-2025-12391)
+* Updated "Tested up to" WordPress 6.9
 
 = 1.5.2 =
-* Fix Redux framework error 
+* Fix Redux framework error
 
 = 1.5.1 =
-* Update Redux framework init call to work with older versions used in other plugins. 
+* Update Redux framework init call to work with older versions used in other plugins
 
 = 1.5.0 =
-* Update redux framework. BuddyBoss compatibility.
+* Update Redux framework. BuddyBoss compatibility.
 
 = 1.4.1 =
 * Fixed a PHP notice in latest versions
 
 = 1.4.0 =
-* Fixes View message restriction message showing even if you have access to viewing messages
+* Fixed "View message" restriction message showing even if you have access
 
 = 1.3.0 =
-- Updated options framework panel
+* Updated options framework panel
 
 = 1.2.0 =
-* Paid memberships Pro viewing messages restriction now generate a notice to upgrade account.
+* PMPro viewing messages restriction now generates a notice to upgrade account
 
 = 1.1.1 =
-* Extra checks added for free access to Paid memberships Pro memberships
+* Extra checks added for free access with Paid Memberships Pro
 
 = 1.1 =
-* Added the ability to give a free access to some BuddyPress members based on specific profile field and value
+* Added the ability to give free access to BuddyPress members based on specific profile field and value
 
 = 1.0.1 =
-* Redirect BuddyPress new message to messages pages.
+* Redirect BuddyPress new message to messages page
 
 = 1.0 =
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.5.3 =
+Security update — addresses CVE-2025-12391. Please update immediately.
