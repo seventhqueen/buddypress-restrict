@@ -27,16 +27,22 @@ abstract class Redux_Extension_Abstract {
 	/**
 	 * The extension URL.
 	 *
+	 * Intentionally untyped for compatibility with third-party/theme extensions
+	 * that redeclare these inherited properties without native type hints.
+	 *
 	 * @var string
 	 */
-	protected string $extension_url;
+	protected $extension_url;
 
 	/**
 	 * The extension dir.
 	 *
+	 * Intentionally untyped for compatibility with third-party/theme extensions
+	 * that redeclare these inherited properties without native type hints.
+	 *
 	 * @var string
 	 */
-	protected string $extension_dir;
+	protected $extension_dir;
 
 	/**
 	 * The instance of the extension

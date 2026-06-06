@@ -3,7 +3,7 @@ Contributors: seventhqueen
 Tags: buddypress, restrict content, membership, access control, pmpro
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -111,6 +111,9 @@ Yes. Tested up to WordPress 6.9 and requires PHP 7.4 or higher.
 
 == Changelog ==
 
+= 1.5.4 =
+* Fix PHP 8+ fatal caused by Redux extension property type mismatch with BuddyBoss theme Redux extensions
+
 = 1.5.3 =
 * **Security fix:** Updated bundled Redux Framework to v4.5.10, removing vulnerable Appsero tracking library (CVE-2025-12391)
 * Updated "Tested up to" WordPress 6.9
@@ -149,6 +152,9 @@ Yes. Tested up to WordPress 6.9 and requires PHP 7.4 or higher.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.4 =
+Fixes a PHP 8+ fatal error with BuddyBoss theme Redux extensions.
 
 = 1.5.3 =
 Security update — addresses CVE-2025-12391. Please update immediately.
