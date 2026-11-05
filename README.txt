@@ -2,7 +2,7 @@
 Contributors: seventhqueen
 Tags: buddypress, restrict content, membership, access control, pmpro
 Requires at least: 5.0
-Tested up to: 7.1.2
+Tested up to: 7.1.4
 Stable tag: 1.5.4
 Requires PHP: 7.4
 License: GPLv2 or later
