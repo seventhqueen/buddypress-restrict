@@ -200,6 +200,30 @@ class BP_Restrict {
 	}
 
 	/**
+	 * Evaluate a restriction condition against the current request URI.
+	 *
+	 * Conditions are plugin/filter-authored PHP expressions. The request URI is NEVER
+	 * spliced into the expression text: the %current_url% placeholder is replaced by the
+	 * variable name $current_url, which is bound as a local variable. This keeps request
+	 * data out of the program text (prevents code injection via "{${...}}" interpolation).
+	 *
+	 * @param string $condition PHP expression, may contain %current_url%.
+	 * @param string $uri       Request URI (untrusted data).
+	 *
+	 * @return bool
+	 */
+	public function evaluate_condition( $condition, $uri ) {
+		$current_url = (string) $uri; // bound value, used by the eval'd expression below
+		$expression  = str_replace( '%current_url%', '$current_url', (string) $condition );
+		$check       = false;
+
+		// phpcs:ignore Squiz.PHP.Eval.Discouraged -- fixed, plugin/filter-authored expression; request data is bound, not interpolated.
+		eval( '$check = ' . $expression . ';' );
+
+		return (bool) $check;
+	}
+
+	/**
 	 * Get the current page url
 	 * @return string
 	 */
@@ -207,7 +231,9 @@ class BP_Restrict {
 		$s        = empty( $_SERVER["HTTPS"] ) ? '' : ( ( $_SERVER["HTTPS"] === "on" ) ? "s" : '' );
 		$protocol = substr( strtolower( $_SERVER["SERVER_PROTOCOL"] ), 0, strpos( strtolower( $_SERVER["SERVER_PROTOCOL"] ), "/" ) ) . $s;
 		$port     = ( $_SERVER["SERVER_PORT"] == "80" || $_SERVER["SERVER_PORT"] == "443" ) ? "" : ( ":" . $_SERVER["SERVER_PORT"] );
-		$uri      = $protocol . "://" . $_SERVER['HTTP_HOST'] . $port . $_SERVER['REQUEST_URI'];
+		$host     = isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '';
+		$request  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$uri      = $protocol . "://" . $host . $port . $request;
 		$segments = explode( '?', $uri, 2 );
 		$url      = $segments[0];
 		$url      = str_replace( "www.", "", $url );

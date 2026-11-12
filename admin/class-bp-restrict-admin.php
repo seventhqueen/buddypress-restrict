@@ -207,11 +207,7 @@ class bp_restrict_Admin {
 			if(  isset( $restriction['logged_in'] ) && $restriction['logged_in'] ) {
 				continue;
 			}
-			$v = str_replace( '%current_url%', '"'. $uri . '"', $restriction['condition'] );
-			
-			$check = false;
-			eval( '$check = ' . $v . ';' );
-			if ( $check ) {
+			if ( bp_restrict()->evaluate_condition( $restriction['condition'], $uri ) ) {
 				$this->check_access( $restriction['name'] );
 			}
 		}

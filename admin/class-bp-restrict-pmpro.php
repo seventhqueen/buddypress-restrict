@@ -181,11 +181,12 @@ class BP_Restrict_Pmpro {
 
 		//loop through remaining restrictions
 		foreach ( $all_restrictions as $restriction ) {
-			$v = str_replace( '%current_url%', '"' . $uri . '"', $restriction['condition'] );
+			// logged_in restrictions can never apply to anonymous visitors
+			if ( ! empty( $restriction['logged_in'] ) && ! is_user_logged_in() ) {
+				continue;
+			}
 
-			$check = false;
-			eval( '$check = ' . $v . ';' );
-			if ( $check ) {
+			if ( bp_restrict()->evaluate_condition( $restriction['condition'], $uri ) ) {
 
 				$this->check_access( $restriction['name'] );
 			}
