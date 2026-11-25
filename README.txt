@@ -3,7 +3,7 @@ Contributors: seventhqueen
 Tags: buddypress, restrict content, membership, access control, pmpro
 Requires at least: 5.0
 Tested up to: 7.2
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -111,6 +111,10 @@ Yes. Tested up to WordPress 7.2 and requires PHP 7.4 or higher.
 
 == Changelog ==
 
+= 1.5.6 =
+* Compatibility: WordPress 7.2
+* Fix: no PHP warning on sites where the restriction settings were never saved.
+
 = 1.5.5 =
 * **Security fix:** Fixed unauthenticated PHP code injection via the request URI in restriction condition evaluation. Request data is no longer part of evaluated code; logged-in-only restrictions are skipped for guests.
 
@@ -155,6 +159,9 @@ Yes. Tested up to WordPress 7.2 and requires PHP 7.4 or higher.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.6 =
+WordPress 7.2 compatibility and a PHP warning fix.
 
 = 1.5.5 =
 Critical security update — fixes an unauthenticated remote code execution vulnerability. Please update immediately.
