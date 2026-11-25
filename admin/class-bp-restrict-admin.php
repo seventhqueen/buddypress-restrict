@@ -236,8 +236,8 @@ class bp_restrict_Admin {
 		
 		$default_redirect = apply_filters( 'bp_restrict_url_redirect', bp_get_signup_page() );
 		
-		//no restriction
-		if ( $restrict_options[ $area ]['type'] == 0 ) {
+		//no restriction (also when the settings were never saved)
+		if ( empty( $restrict_options[ $area ]['type'] ) ) {
 			return;
 		}
 		

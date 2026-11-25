@@ -2,7 +2,7 @@
 Contributors: seventhqueen
 Tags: buddypress, restrict content, membership, access control, pmpro
 Requires at least: 5.0
-Tested up to: 7.1.4
+Tested up to: 7.2
 Stable tag: 1.5.5
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -102,7 +102,7 @@ The plugin restricts access to BuddyPress pages. Menu visibility depends on your
 
 = Is it compatible with the latest WordPress and PHP versions? =
 
-Yes. Tested up to WordPress 6.9 and requires PHP 7.4 or higher.
+Yes. Tested up to WordPress 7.2 and requires PHP 7.4 or higher.
 
 == Screenshots ==
 
